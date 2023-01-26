@@ -1,6 +1,21 @@
 import assert from 'assert';
 
 function minimumTotal(triangle: number[][]): number {
+    let cache = triangle[0];
+    for (let level = 1; level < triangle.length; level++) {
+        const _cache: number[] = [];
+        for (let col = 0; col < triangle[level].length; col++) {
+            _cache[col] =
+                triangle[level][col] +
+                Math.min(cache[col - 1] ?? Number.MAX_SAFE_INTEGER, cache[col] ?? Number.MAX_SAFE_INTEGER);
+        }
+        cache = _cache;
+    }
+
+    return Math.min(...cache);
+}
+
+function _minimumTotal(triangle: number[][]): number {
     for (let level = 1; level < triangle.length; level++) {
         for (let col = 0; col < triangle[level].length; col++) {
             triangle[level][col] += Math.min(
@@ -13,26 +28,24 @@ function minimumTotal(triangle: number[][]): number {
     return Math.min(...triangle[triangle.length - 1]);
 }
 
-function _minimumTotal(triangle: number[][]): number {}
-
-//TODO
 function test() {
-    let nums: number[] = [];
-    let target: number = 0;
+    let triangle: number[][] = [];
     try {
-        for (let i = 2; i < 1000; i++) {
-            nums = Array(i)
+        for (let n = 1; n <= 100; n++) {
+            triangle = Array(n)
                 .fill(undefined)
-                .map(() => Math.random() - 0.5);
-            const i1 = Math.floor(Math.random() * i);
-            let i2 = Math.floor(Math.random() * i);
-            while (i2 === i1) i2 = Math.floor(Math.random() * i);
-            target = nums[i1] + nums[i2];
-            assert.deepStrictEqual(twoSum(nums, target), _twoSum(nums, target));
+                .map((v, i) =>
+                    Array(i)
+                        .fill(undefined)
+                        .map(() => Math.floor(Math.random() * 100))
+                );
+            assert.deepStrictEqual(
+                minimumTotal(triangle.map((v) => v.slice())),
+                _minimumTotal(triangle.map((v) => v.slice()))
+            );
         }
     } catch (e) {
-        console.log(nums);
-        console.log(target);
+        console.log(triangle);
         if (e instanceof assert.AssertionError) {
             console.log(e.message);
         } else {
