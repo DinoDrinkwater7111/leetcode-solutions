@@ -1,26 +1,77 @@
-import assert from "assert";
+import assert from 'assert';
 
-function isHappy(n: number): boolean {
-    function sumDigitSquare(k: number): number {
-        let sum = 0;
-        while (k > 0) {
-            sum += (k % 10) ** 2;
-            k = Math.floor(k / 10);
+const funcs = [
+    function isHappy(n: number): boolean {
+        function sumDigitSquare(k: number): number {
+            let sum = 0;
+            while (k > 0) {
+                sum += (k % 10) ** 2;
+                k = Math.floor(k / 10);
+            }
+            return sum;
         }
-        return sum;
-    }
-    let nextSum = sumDigitSquare(n);
-    let histories: null[] = [];
-    while (histories[nextSum] === undefined) {
-        histories[nextSum] = null;
-        nextSum = sumDigitSquare(nextSum);
-        if (nextSum === 1) return true;
-    }
-    return false;
+        let nextSum = sumDigitSquare(n);
+        let histories: null[] = [];
+        while (histories[nextSum] === undefined) {
+            histories[nextSum] = null;
+            nextSum = sumDigitSquare(nextSum);
+            if (nextSum === 1) return true;
+        }
+        return false;
+    },
+    function isHappy(n: number): boolean {
+        function sumDigitSquare(k: number): number {
+            let sum = 0;
+            while (k > 0) {
+                sum += (k % 10) ** 2;
+                k = Math.floor(k / 10);
+            }
+            return sum;
+        }
+        let nextSum = sumDigitSquare(n);
+        let histories: null[] = [];
+        while (histories[nextSum] === undefined) {
+            histories[nextSum] = null;
+            nextSum = sumDigitSquare(nextSum);
+            if (nextSum === 1) return true;
+        }
+        return false;
+    },
+];
+
+type TestCase = Parameters<typeof funcs[number]>;
+function* testCaseIterator(): Generator<TestCase> {
+    //TODO
 }
 
-function _isHappy(n: number): boolean {
-
+function test(testCase: TestCase, actualFuncInd: number, expectedFuncInd: number): boolean {
+    try {
+        assert.deepStrictEqual(funcs[actualFuncInd](...testCase), funcs[expectedFuncInd](...testCase));
+        return true;
+    } catch (e) {
+        console.log('❌'.repeat(32));
+        console.log(`actualFuncInd: ${actualFuncInd}`);
+        console.log(`expectedFuncInd: ${expectedFuncInd}`);
+        console.log(`testCase: ${JSON.stringify(testCase)}`);
+        if (e instanceof assert.AssertionError) {
+            console.log(e.message);
+        } else {
+            console.error(e);
+        }
+        return false;
+    }
 }
 
-//TODO
+{
+    let count = 0;
+    outer: for (const testCase of testCaseIterator()) {
+        if (++count < 10) {
+            console.log('----------------------------------------------------');
+            console.log(`Testcase ${count}:`);
+            console.log(JSON.stringify(testCase, undefined, 2));
+        }
+        for (let i = 0; i < funcs.length - 1; i++) {
+            if (!test(testCase, i, i + 1)) break outer;
+        }
+    }
+}
