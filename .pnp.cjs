@@ -36,8 +36,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["@datastructures-js/priority-queue", "npm:6.1.1"],
+            ["@types/lodash", "npm:4.14.182"],
             ["@types/node", "npm:17.0.8"],
             ["@types/roman-numerals", "npm:0.3.0"],
+            ["lodash", "npm:4.17.21"],
             ["prettier", "npm:2.5.1"],
             ["roman-numerals", "npm:0.3.2"],
             ["ts-node", "virtual:fee3a6f51907fd85af0c56499dc1875b493da7e6ff78328c12adeba50a83af0a5c1d2c877fe6262d78e5fcc7674710153aa48c8e03119f1277d9888f3169e1ef#npm:10.4.0"],
@@ -121,6 +123,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/lodash", [
+        ["npm:4.14.182", {
+          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.182-1073aac722-7dd137aa9d.zip/node_modules/@types/lodash/",
+          "packageDependencies": [
+            ["@types/lodash", "npm:4.14.182"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/node", [
         ["npm:17.0.8", {
           "packageLocation": "./.yarn/cache/@types-node-npm-17.0.8-413315941f-f4cadeb9e6.zip/node_modules/@types/node/",
@@ -190,8 +201,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["leetcode-solutions", "workspace:."],
             ["@datastructures-js/priority-queue", "npm:6.1.1"],
+            ["@types/lodash", "npm:4.14.182"],
             ["@types/node", "npm:17.0.8"],
             ["@types/roman-numerals", "npm:0.3.0"],
+            ["lodash", "npm:4.17.21"],
             ["prettier", "npm:2.5.1"],
             ["roman-numerals", "npm:0.3.2"],
             ["ts-node", "virtual:fee3a6f51907fd85af0c56499dc1875b493da7e6ff78328c12adeba50a83af0a5c1d2c877fe6262d78e5fcc7674710153aa48c8e03119f1277d9888f3169e1ef#npm:10.4.0"],
@@ -199,6 +212,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["typescript", "patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=493e53"]
           ],
           "linkType": "SOFT",
+        }]
+      ]],
+      ["lodash", [
+        ["npm:4.17.21", {
+          "packageLocation": "./.yarn/cache/lodash-npm-4.17.21-6382451519-eb835a2e51.zip/node_modules/lodash/",
+          "packageDependencies": [
+            ["lodash", "npm:4.17.21"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["make-error", [
