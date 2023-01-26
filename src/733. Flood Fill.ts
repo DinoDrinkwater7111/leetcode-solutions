@@ -1,11 +1,11 @@
 import assert from 'assert';
 
-function floodFill(image: number[][], sr: number, sc: number, newColor: number): number[][] {
+function floodFill(image: number[][], sr: number, sc: number, color: number): number[][] {
     const oldColor = image[sr][sc];
-    if (oldColor === newColor) return image;
+    if (oldColor === color) return image;
     function floodFillEx(sr: number, sc: number) {
         if (image[sr]?.[sc] !== oldColor) return;
-        image[sr][sc] = newColor;
+        image[sr][sc] = color;
         floodFillEx(sr - 1, sc);
         floodFillEx(sr + 1, sc);
         floodFillEx(sr, sc - 1);
@@ -17,13 +17,13 @@ function floodFill(image: number[][], sr: number, sc: number, newColor: number):
     return image;
 }
 
-function _floodFill(image: number[][], sr: number, sc: number, newColor: number): number[][] {
+function _floodFill(image: number[][], sr: number, sc: number, color: number): number[][] {
     const oldColor = image[sr][sc];
     const filled: boolean[][] = image.map(() => []);
     function floodFillEx(sr: number, sc: number) {
         if (image[sr]?.[sc] !== oldColor) return;
         if (filled[sr][sc]) return;
-        image[sr][sc] = newColor;
+        image[sr][sc] = color;
         filled[sr][sc] = true;
         floodFillEx(sr - 1, sc);
         floodFillEx(sr + 1, sc);
