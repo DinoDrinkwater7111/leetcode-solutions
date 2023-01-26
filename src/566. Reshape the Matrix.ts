@@ -1,5 +1,33 @@
 import assert from 'assert';
 
+function matrixReshape_(mat: number[][], r: number, c: number): number[][] {
+    const n = mat.length;
+    const m = mat[0].length;
+    if (r * c !== n * m) return mat;
+    const result: number[][] = [];
+    for (let i = 0; i < r; i++) result[i] = [];
+    let row = 0;
+    let col = 0;
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < m; j++) {
+            result[row][col++] = mat[i][j];
+            if (col === c) {
+                row++;
+                col = 0;
+            }
+            count++;
+        }
+    }
+    for (let i = 0; i < r; i++) {
+        result[i] = [];
+        for (let j = 0; j < c; j++) {
+            const flatInd = i * c + j;
+            result[i][j] = mat[Math.floor(flatInd / m)][flatInd % m];
+        }
+    }
+    return result;
+}
+
 function matrixReshape(mat: number[][], r: number, c: number): number[][] {
     const result: number[][] = [];
     const n = mat.length;
