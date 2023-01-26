@@ -18,3 +18,5 @@ function findJudge(n: number, trust: number[][]): number {
     }
     return candidate;
 }
+
+//TODO
