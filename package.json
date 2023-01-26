@@ -7,6 +7,7 @@
     "license": "MIT",
     "packageManager": "yarn@3.1.1",
     "devDependencies": {
+        "@types/lodash": "^4.14.182",
         "@types/node": "^17.0.8",
         "@types/roman-numerals": "^0.3.0",
         "prettier": "^2.5.1",
@@ -15,8 +16,7 @@
         "typescript": "^4.5.4"
     },
     "dependencies": {
-        "@datastructures-js/priority-queue": "^6.1.1",
-        "@types/lodash": "^4.14.182",
+        "@datastructures-js/priority-queue": "4.1.1",
         "lodash": "^4.17.21",
         "roman-numerals": "^0.3.2"
     }

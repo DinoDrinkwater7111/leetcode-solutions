@@ -21,19 +21,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@datastructures-js/heap@npm:^4.0.2":
-  version: 4.1.0
-  resolution: "@datastructures-js/heap@npm:4.1.0"
-  checksum: 1e92c469437a2db5e39f74e2ac5ada5c81d2997e313a1d7a92b06a4f10f62d9e3be7f5c77da5cc47e14c1f5a36f620ccea447a517f0b339eebb1a32e36ebc42a
+"@datastructures-js/heap@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@datastructures-js/heap@npm:2.0.0"
+  checksum: 07e9693ba7156342fd242f73d19253da7cc9b52e29d5e5d0b7f36eed91477ac8c3f7fe3e089067a5f72f55f579fda2b393c70b83ff23f0f4c2475898ecc1e15e
   languageName: node
   linkType: hard
 
-"@datastructures-js/priority-queue@npm:^6.1.1":
-  version: 6.1.1
-  resolution: "@datastructures-js/priority-queue@npm:6.1.1"
+"@datastructures-js/priority-queue@npm:4.1.1":
+  version: 4.1.1
+  resolution: "@datastructures-js/priority-queue@npm:4.1.1"
   dependencies:
-    "@datastructures-js/heap": ^4.0.2
-  checksum: 1435c835e804df00109ec429f2b6a1baaa10610a2c66fb7a56f9f11ce13f157bb13c7638c6e2af704416ff94030a34b92136ca64c68cac5a17a225aa8c367fd9
+    "@datastructures-js/heap": ^2.0.0
+  checksum: 1c012456183c84cdd754f55982e900df7f784085c71a8f6e5ec65e867bfc194c8da101d85df300e462d0967f4a2fb7bd2cbe66ef1f076450c930f6415405e360
   languageName: node
   linkType: hard
 
@@ -127,7 +127,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "leetcode-solutions@workspace:."
   dependencies:
-    "@datastructures-js/priority-queue": ^6.1.1
+    "@datastructures-js/priority-queue": 4.1.1
     "@types/lodash": ^4.14.182
     "@types/node": ^17.0.8
     "@types/roman-numerals": ^0.3.0

@@ -35,7 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
-            ["@datastructures-js/priority-queue", "npm:6.1.1"],
+            ["@datastructures-js/priority-queue", "npm:4.1.1"],
             ["@types/lodash", "npm:4.14.182"],
             ["@types/node", "npm:17.0.8"],
             ["@types/roman-numerals", "npm:0.3.0"],
@@ -69,20 +69,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@datastructures-js/heap", [
-        ["npm:4.1.0", {
-          "packageLocation": "./.yarn/cache/@datastructures-js-heap-npm-4.1.0-221ec2d313-1e92c46943.zip/node_modules/@datastructures-js/heap/",
+        ["npm:2.0.0", {
+          "packageLocation": "./.yarn/cache/@datastructures-js-heap-npm-2.0.0-8bf4e2a604-07e9693ba7.zip/node_modules/@datastructures-js/heap/",
           "packageDependencies": [
-            ["@datastructures-js/heap", "npm:4.1.0"]
+            ["@datastructures-js/heap", "npm:2.0.0"]
           ],
           "linkType": "HARD",
         }]
       ]],
       ["@datastructures-js/priority-queue", [
-        ["npm:6.1.1", {
-          "packageLocation": "./.yarn/cache/@datastructures-js-priority-queue-npm-6.1.1-cee18b957d-1435c835e8.zip/node_modules/@datastructures-js/priority-queue/",
+        ["npm:4.1.1", {
+          "packageLocation": "./.yarn/cache/@datastructures-js-priority-queue-npm-4.1.1-2562a1de93-1c01245618.zip/node_modules/@datastructures-js/priority-queue/",
           "packageDependencies": [
-            ["@datastructures-js/priority-queue", "npm:6.1.1"],
-            ["@datastructures-js/heap", "npm:4.1.0"]
+            ["@datastructures-js/priority-queue", "npm:4.1.1"],
+            ["@datastructures-js/heap", "npm:2.0.0"]
           ],
           "linkType": "HARD",
         }]
@@ -200,7 +200,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["leetcode-solutions", "workspace:."],
-            ["@datastructures-js/priority-queue", "npm:6.1.1"],
+            ["@datastructures-js/priority-queue", "npm:4.1.1"],
             ["@types/lodash", "npm:4.14.182"],
             ["@types/node", "npm:17.0.8"],
             ["@types/roman-numerals", "npm:0.3.0"],
