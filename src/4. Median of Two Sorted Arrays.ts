@@ -1,4 +1,4 @@
-import assert from 'assert/strict';
+import assert from 'assert';
 
 function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
     if (nums1.length < nums2.length) {

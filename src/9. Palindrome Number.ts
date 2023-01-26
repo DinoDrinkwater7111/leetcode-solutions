@@ -1,7 +1,5 @@
 import assert from 'assert';
 
-export {};
-
 function isPalindrome(x: number): boolean {
     if (x < 0) return false;
     const digits: number[] = [];
