@@ -101,7 +101,6 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
                     end: arr1.end,
                     start: arr1.start,
                 });
-                _arr2 = arr2;
             } else {
                 _arr1 = new NumArr({
                     nums: arr1.nums,
@@ -132,7 +131,6 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
                     end: _arr1.end,
                     start: _arr1.start,
                 });
-                arr2_ = _arr2;
             } else {
                 arr1_ = new NumArr({
                     nums: _arr1.nums,
