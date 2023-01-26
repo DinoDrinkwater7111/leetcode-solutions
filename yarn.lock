@@ -56,6 +56,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/roman-numerals@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@types/roman-numerals@npm:0.3.0"
+  checksum: 72f00da0d286b9fc924879b191938ee35d6c9cfcc7964d006a75adee5343c73fbe47a67ac24f89f6f8a53c1934e6359296a3cd465d75882a7fc94ead4b3066ce
+  languageName: node
+  linkType: hard
+
 "acorn-walk@npm:^8.1.1":
   version: 8.2.0
   resolution: "acorn-walk@npm:8.2.0"
@@ -98,7 +105,9 @@ __metadata:
   resolution: "leetcode-solutions@workspace:."
   dependencies:
     "@types/node": ^17.0.8
+    "@types/roman-numerals": ^0.3.0
     prettier: ^2.5.1
+    roman-numerals: ^0.3.2
     ts-node: ^10.4.0
     tslib: ^2.3.1
     typescript: ^4.5.4
@@ -118,6 +127,13 @@ __metadata:
   bin:
     prettier: bin-prettier.js
   checksum: 21b9408476ea1c544b0e45d51ceb94a84789ff92095abb710942d780c862d0daebdb29972d47f6b4d0f7ebbfb0ffbf56cc2cfa3e3e9d1cca54864af185b15b66
+  languageName: node
+  linkType: hard
+
+"roman-numerals@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "roman-numerals@npm:0.3.2"
+  checksum: e797efc49d5ba9fc18a44b07afb9da3de9748d3a6326b999c432a05f89be6438516e819a2dc12e9ebfae5c975f3934e70a183e2f0da673373a5965574eb3a7ef
   languageName: node
   linkType: hard
 

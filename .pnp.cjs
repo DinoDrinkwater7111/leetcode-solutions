@@ -36,7 +36,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["@types/node", "npm:17.0.8"],
+            ["@types/roman-numerals", "npm:0.3.0"],
             ["prettier", "npm:2.5.1"],
+            ["roman-numerals", "npm:0.3.2"],
             ["ts-node", "virtual:fee3a6f51907fd85af0c56499dc1875b493da7e6ff78328c12adeba50a83af0a5c1d2c877fe6262d78e5fcc7674710153aa48c8e03119f1277d9888f3169e1ef#npm:10.4.0"],
             ["tslib", "npm:2.3.1"],
             ["typescript", "patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=493e53"]
@@ -108,6 +110,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/roman-numerals", [
+        ["npm:0.3.0", {
+          "packageLocation": "./.yarn/cache/@types-roman-numerals-npm-0.3.0-c8adc58c41-72f00da0d2.zip/node_modules/@types/roman-numerals/",
+          "packageDependencies": [
+            ["@types/roman-numerals", "npm:0.3.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["acorn", [
         ["npm:8.7.0", {
           "packageLocation": "./.yarn/cache/acorn-npm-8.7.0-ca81d350ee-e0f79409d6.zip/node_modules/acorn/",
@@ -159,7 +170,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["leetcode-solutions", "workspace:."],
             ["@types/node", "npm:17.0.8"],
+            ["@types/roman-numerals", "npm:0.3.0"],
             ["prettier", "npm:2.5.1"],
+            ["roman-numerals", "npm:0.3.2"],
             ["ts-node", "virtual:fee3a6f51907fd85af0c56499dc1875b493da7e6ff78328c12adeba50a83af0a5c1d2c877fe6262d78e5fcc7674710153aa48c8e03119f1277d9888f3169e1ef#npm:10.4.0"],
             ["tslib", "npm:2.3.1"],
             ["typescript", "patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=493e53"]
@@ -181,6 +194,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/prettier-npm-2.5.1-58b195b509-21b9408476.zip/node_modules/prettier/",
           "packageDependencies": [
             ["prettier", "npm:2.5.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["roman-numerals", [
+        ["npm:0.3.2", {
+          "packageLocation": "./.yarn/cache/roman-numerals-npm-0.3.2-45b7cf6376-e797efc49d.zip/node_modules/roman-numerals/",
+          "packageDependencies": [
+            ["roman-numerals", "npm:0.3.2"]
           ],
           "linkType": "HARD",
         }]
