@@ -18,6 +18,6 @@ function getHint(secret: string, guess: string): string {
     return `${bulls}A${cows}B`;
 }
 
-function getHint(secret: string, guess: string): string {}
+function _getHint(secret: string, guess: string): string {}
 
 //TODO
