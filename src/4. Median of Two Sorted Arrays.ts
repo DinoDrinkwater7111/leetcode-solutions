@@ -1,159 +1,195 @@
 import assert from 'assert/strict';
 
-
-//TODO
 function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
-    // Make nums1.length always equal or greater than nums2.length
-    if (nums2.length > nums1.length) {
+    if (nums1.length < nums2.length) {
         const numsTemp = nums1;
         nums1 = nums2;
         nums2 = numsTemp;
     }
+    class NumArr {
+        public readonly nums: number[];
+        public effectiveStart: number;
+        public effectiveEnd: number;
+        public start: number;
+        public end: number;
 
-    class SortedArr {
-        public readonly arr: number[];
-        public readonly length: number;
-        public readonly offsetStart: number;
-        public readonly offsetEnd: number;
-        public readonly lowerMiddleIndex: number;
+        constructor(arg: { nums: number[]; effectiveStart: number; effectiveEnd: number; start: number; end: number }) {
+            this.nums = arg.nums;
+            this.start = arg.start;
+            this.end = arg.end;
+            this.effectiveStart = arg.effectiveStart;
+            this.effectiveEnd = arg.effectiveEnd;
+        }
 
-        constructor(arg: { arr: number[] | SortedArr; offsetStart: number; offsetEnd: number }) {
-            if (arg.arr instanceof SortedArr) {
-                this.arr = arg.arr.arr;
-                this.length = arg.arr.length;
-                this.offsetStart = arg.arr.offsetStart + arg.offsetStart;
-                this.offsetEnd = arg.arr.offsetEnd + arg.offsetEnd;
-            } else {
-                this.arr = arg.arr;
-                this.length = arg.arr.length + arg.offsetStart + arg.offsetEnd;
-                this.offsetStart = arg.offsetStart;
-                this.offsetEnd = arg.offsetEnd;
-            }
-            this.lowerMiddleIndex = this.length % 2 === 0 ? this.length / 2 - 1 : (this.length - 1) / 2;
+        public get length(): number {
+            return this.end - this.start + 1;
+        }
+
+        public get lowerMiddleInd(): number {
+            return this.start + Math.floor((this.length - 1) / 2);
+        }
+
+        public get lowerMiddle(): number {
+            return this.get(this.start + Math.floor((this.length - 1) / 2));
+        }
+
+        public get higherMiddleInd(): number {
+            return this.start + Math.ceil((this.length - 1) / 2);
+        }
+
+        public get higherMiddle(): number {
+            return this.get(this.start + Math.ceil((this.length - 1) / 2));
         }
 
         public get(index: number): number {
-            return this.arr[index - this.offsetStart];
-        }
-    }
-
-    const arr1 = new SortedArr({ arr: nums1, offsetStart: 0, offsetEnd: 0 });
-    const arr2 = new SortedArr({ arr: nums2, offsetStart: 0, offsetEnd: 0 });
-
-    function _findMedianSortedArrays(arg: { arr1: SortedArr; arr2: SortedArr }): number {
-        if(arg.arr2.length === 0){
-            if((arg.arr1.length%2)===0)
-        }
-
-        if ( arg.arr2.get(arg.arr2.lowerMiddleIndex)<arg.arr1.get(arg.arr1.lowerMiddleIndex)) {
-            return _findMedianSortedArrays({
-
-            })
-        }
-    }
-
-    return _findMedianSortedArrays({ arr1: arr1, arr2: arr2 });
-
-    //Simplify Calcation
-    class DoubledNums {
-        constructor(public readonly nums: number[]) {}
-
-        public get(index: number): number {
-            return this.nums[Math.floor(index / 2)];
-        }
-
-        public get length() {
-            return this.nums.length * 2;
-        }
-
-        public get median() {
-            return (this.get(this.lowerMiddleIndex) + this.get(this.higherMiddleIndex)) / 2;
-        }
-
-        public get lowerMiddleIndex() {
-            return this.length / 2 - 1;
-        }
-
-        public get higherMiddleIndex() {
-            return this.length / 2;
-        }
-
-        public findSuperiorIndex(arg: { start: number; end: number; target: number }): number {
-            const { start, end, target } = arg;
-
-            if (start === end) {
-                if (target <= this.get(end)) return end;
-                else return -1;
-            }
-
-            const middle = Math.floor((start + end) / 2);
-            if (target <= this.get(middle)) {
-                return this.findSuperiorIndex({
-                    start: start,
-                    end: middle,
-                    target: target,
-                });
+            if (index < this.effectiveStart) {
+                return Number.NEGATIVE_INFINITY;
+            } else if (index > this.effectiveEnd) {
+                return Number.POSITIVE_INFINITY;
             } else {
-                return this.findSuperiorIndex({
-                    start: middle + 1,
-                    end: end,
-                    target: target,
-                });
+                return this.nums[index];
             }
         }
 
-        public findInferior(arg: { start: number; end: number; target: number }): number {
-            const { start, end, target } = arg;
-
-            if (start === end) {
-                if (this.get(start) <= target) return start;
-                else return -1;
+        public print(): void {
+            const resArr: number[] = [];
+            for (let i = this.start; i <= this.end; i++) {
+                resArr.push(this.get(i));
             }
-
-            const middle = Math.ceil((start + end) / 2);
-            if (this.get(middle) <= target) {
-                return this.findInferior({
-                    start: middle,
-                    end: end,
-                    target: target,
-                });
-            } else {
-                return this.findInferior({
-                    start: start,
-                    end: middle - 1,
-                    target: target,
-                });
-            }
+            console.log(
+                JSON.stringify(
+                    resArr.map((n) => {
+                        switch (n) {
+                            case Number.NEGATIVE_INFINITY:
+                                return '-∞';
+                            case Number.POSITIVE_INFINITY:
+                                return '+∞';
+                            default:
+                                return n.toString();
+                        }
+                    })
+                )
+            );
         }
     }
 
-    let _nums1 = new DoubledNums(nums1);
-    let _nums2 = new DoubledNums(nums2);
-
-    if (_nums2.length === 0) return _nums1.median;
-
-    //Make _nums1[_nums1.lowerMiddleIndex] always equal or greater than _nums2[_nums2.lowerMiddleIndex]
-    if (_nums1.get(_nums1.lowerMiddleIndex) < _nums2.get(_nums2.lowerMiddleIndex)) {
-        const _numsTemp = _nums1;
-        _nums1 = _nums2;
-        _nums2 = _numsTemp;
-    }
-
-    const superiorIndex = _nums2.findSuperiorIndex({
-        start: _nums2.higherMiddleIndex,
-        end: _nums2.length - 1,
-        target: _nums1.get(_nums1.higherMiddleIndex),
+    let arr1 = new NumArr({
+        nums: nums1,
+        effectiveEnd: nums1.length - 1,
+        effectiveStart: 0,
+        end: nums1.length - 1,
+        start: 0,
     });
-    if (superiorIndex === _nums2.higherMiddleIndex) {
-        return _nums1.median;
-    } else {
+    let arr2 = new NumArr({
+        nums: nums2,
+        effectiveEnd: nums2.length - 1,
+        effectiveStart: 0,
+        end: nums2.length - 1,
+        start: 0,
+    });
+
+    while (arr2.length > 1 && arr1.effectiveEnd >= arr1.effectiveStart) {
+        let _arr1: NumArr = arr1;
+        let _arr2: NumArr = arr2;
+
+        if (arr2.length > 1) {
+            if (arr1.lowerMiddle < arr2.lowerMiddle) {
+                _arr1 = new NumArr({
+                    nums: arr1.nums,
+                    effectiveStart: arr1.lowerMiddleInd + (arr1.length % 2 === 0 ? 1 : 0),
+                    effectiveEnd: arr1.effectiveEnd,
+                    end: arr1.end,
+                    start: arr1.start,
+                });
+                _arr2 = arr2;
+            } else {
+                _arr1 = new NumArr({
+                    nums: arr1.nums,
+                    effectiveStart: arr1.effectiveStart,
+                    effectiveEnd: arr1.effectiveEnd,
+                    end: arr1.end,
+                    start: arr1.start - (arr2.lowerMiddleInd - arr2.start + (arr2.length % 2 === 0 ? 1 : 0)),
+                });
+                _arr2 = new NumArr({
+                    nums: arr2.nums,
+                    effectiveStart: arr2.effectiveStart,
+                    effectiveEnd: arr2.effectiveEnd,
+                    end: arr2.end,
+                    start: arr2.lowerMiddleInd + (arr2.length % 2 === 0 ? 1 : 0),
+                });
+            }
+        }
+
+        let arr1_: NumArr = _arr1;
+        let arr2_: NumArr = _arr2;
+
+        if (_arr2.length > 1) {
+            if (_arr1.higherMiddle > _arr2.higherMiddle) {
+                arr1_ = new NumArr({
+                    nums: _arr1.nums,
+                    effectiveStart: _arr1.effectiveStart,
+                    effectiveEnd: _arr1.higherMiddleInd - (_arr1.length % 2 === 0 ? 1 : 0),
+                    end: _arr1.end,
+                    start: _arr1.start,
+                });
+                arr2_ = _arr2;
+            } else {
+                arr1_ = new NumArr({
+                    nums: _arr1.nums,
+                    effectiveStart: _arr1.effectiveStart,
+                    effectiveEnd: _arr1.effectiveEnd,
+                    end: _arr1.end + (_arr2.end - _arr2.higherMiddleInd + (_arr2.length % 2 === 0 ? 1 : 0)),
+                    start: _arr1.start,
+                });
+                arr2_ = new NumArr({
+                    nums: _arr2.nums,
+                    effectiveStart: _arr2.effectiveStart,
+                    effectiveEnd: _arr2.effectiveEnd,
+                    end: _arr2.higherMiddleInd - (_arr2.length % 2 === 0 ? 1 : 0),
+                    start: _arr2.start,
+                });
+            }
+        }
+
+        arr1 = arr1_;
+        arr2 = arr2_;
     }
 
-    return 1;
+    if (arr1.effectiveEnd < arr1.effectiveStart) {
+        return (arr2.lowerMiddle + arr2.higherMiddle) / 2;
+    }
+
+    switch (arr2.length) {
+        case 0:
+            return (arr1.lowerMiddle + arr1.higherMiddle) / 2;
+        case 1: {
+            if ((nums1.length + nums2.length) % 2 === 0) {
+                const smallNums = [
+                    arr1.get(arr1.lowerMiddleInd - 1),
+                    arr1.lowerMiddle,
+                    arr1.get(arr1.lowerMiddleInd + 1),
+                    arr2.get(arr2.start),
+                ];
+                smallNums.sort((a, b) => a - b);
+                return (smallNums[1] + smallNums[2]) / 2;
+            } else {
+                const smallNums = [arr1.lowerMiddle, arr1.higherMiddle, arr2.get(arr2.start)];
+                smallNums.sort((a, b) => a - b);
+                return smallNums[1];
+            }
+        }
+        case 2:
+            return (arr2.get(arr2.start) + arr2.get(arr2.end)) / 2;
+        default:
+            arr1.print();
+            arr2.print();
+    }
+
+    throw new Error();
 }
 
 function _findMedianSortedArrays(nums1: number[], nums2: number[]): number {
-    const nums3 = nums1.concat(nums2).sort();
+    const nums3 = nums1.concat(nums2).sort((a, b) => a - b);
     if (nums3.length % 2 === 0) {
         return (nums3[nums3.length / 2 - 1] + nums3[nums3.length / 2]) / 2;
     } else {
@@ -162,24 +198,48 @@ function _findMedianSortedArrays(nums1: number[], nums2: number[]): number {
 }
 
 function test() {
-    findMedianSortedArrays([1, 2, 3, 4], [5, 5, 6, 7]);
+    {
+        const N = 1000000;
+        const nums1 = Array(N)
+            .fill(undefined)
+            .map(() => Math.random() - 0.5)
+            .sort((a, b) => a - b);
+        const nums2 = Array(N/2)
+            .fill(undefined)
+            .map(() => Math.random() - 0.5)
+            .sort((a, b) => a - b);
+        {
+            const t1 = performance.now();
+            findMedianSortedArrays(nums1, nums2);
+            const t2 = performance.now();
+            console.log(t2 - t1);
+        }
+        {
+            const t1 = performance.now();
+            _findMedianSortedArrays(nums1, nums2);
+            const t2 = performance.now();
+            console.log(t2 - t1);
+        }
+    }
     return;
 
     let nums1: number[];
     let nums2: number[];
     try {
-        for (let i = 0; i < 100; i++) {
-            for (let j = 0; j < 100; j++) {
-                if (i + j === 0) continue;
-                nums1 = Array(i)
-                    .fill(undefined)
-                    .map(() => Math.random() - 0.5)
-                    .sort();
-                nums2 = Array(j)
-                    .fill(undefined)
-                    .map(() => Math.random() - 0.5)
-                    .sort();
-                assert.equal(findMedianSortedArrays(nums1, nums2), _findMedianSortedArrays(nums1, nums2));
+        for (let k = 0; k < 10; k++) {
+            for (let i = 0; i < 100; i++) {
+                for (let j = 0; j < 100; j++) {
+                    if (i + j === 0) continue;
+                    nums1 = Array(i)
+                        .fill(undefined)
+                        .map(() => Math.random() - 0.5)
+                        .sort((a, b) => a - b);
+                    nums2 = Array(j)
+                        .fill(undefined)
+                        .map(() => Math.random() - 0.5)
+                        .sort((a, b) => a - b);
+                    assert.equal(findMedianSortedArrays(nums1, nums2), _findMedianSortedArrays(nums1, nums2));
+                }
             }
         }
     } catch (e) {
