@@ -11,6 +11,32 @@ class TreeNode {
     }
 }
 
+function kthSmallest_(root: TreeNode | null, k: number): number {
+    let count = 0;
+    let currentNode = root;
+    while (currentNode !== null) {
+        if (currentNode.left === null) {
+            if (++count === k) return currentNode.val;
+            currentNode = currentNode.right;
+        } else {
+            let traveler = currentNode.left;
+            while (traveler.right !== null && traveler.right !== currentNode) {
+                traveler = traveler.right;
+            }
+            if (traveler.right === null) {
+                traveler.right = currentNode;
+                currentNode = currentNode.left;
+            } else {
+                if (++count === k) return currentNode.val;
+                traveler.right = null;
+                currentNode = currentNode.right;
+            }
+        }
+    }
+
+    throw new Error();
+}
+
 function kthSmallest(root: TreeNode | null, k: number): number {
     const nodeStack: TreeNode[] = [];
     let count = 0;
@@ -99,7 +125,9 @@ function test() {
                 )
             );
             k = Math.floor(Math.random() * arr.length) + 1;
+            const result_ = kthSmallest_(arr2treeNode(arr), k);
             const result = kthSmallest(arr2treeNode(arr), k);
+            assert.deepStrictEqual(result_, result);
             const _result = _kthSmallest(arr2treeNode(arr), k);
             assert.deepStrictEqual(result, _result);
         }
