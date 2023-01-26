@@ -31,35 +31,6 @@ const funcs = [
 
         return result;
     },
-    function findSubstring(s: string, words: string[]): number[] {
-        const wordLen = words[0].length;
-        const wordsLen = words[0].length * words.length;
-        const word2count = new Map<string, number>();
-        for (const word of words) word2count.set(word, (word2count.get(word) ?? 0) + 1);
-
-        function getNextWord(startInd: number): string | undefined {
-            const subStr = s.substring(startInd, startInd + wordLen);
-            if ((word2count.get(subStr) ?? 0) > 0) return subStr;
-            else return undefined;
-        }
-
-        function isSubString(startInd: number, checkedLen: number): boolean {
-            if (checkedLen === wordsLen) return true;
-            const word = getNextWord(startInd);
-            if (word === undefined) return false;
-            word2count.set(word, word2count.get(word)! - 1);
-            const result = isSubString(startInd + wordLen, checkedLen + wordLen);
-            word2count.set(word, word2count.get(word)! + 1);
-            return result;
-        }
-
-        const result: number[] = [];
-        for (let i = 0; i <= s.length - wordsLen; i++) {
-            if (isSubString(i, 0)) result.push(i);
-        }
-
-        return result;
-    },
 ];
 
 type TestCase = Parameters<typeof funcs[number]>;
