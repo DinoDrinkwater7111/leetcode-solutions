@@ -15,14 +15,6 @@ function matrixReshape_(mat: number[][], r: number, c: number): number[][] {
                 row++;
                 col = 0;
             }
-            count++;
-        }
-    }
-    for (let i = 0; i < r; i++) {
-        result[i] = [];
-        for (let j = 0; j < c; j++) {
-            const flatInd = i * c + j;
-            result[i][j] = mat[Math.floor(flatInd / m)][flatInd % m];
         }
     }
     return result;
