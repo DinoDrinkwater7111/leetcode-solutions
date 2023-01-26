@@ -1,18 +1,18 @@
 import assert from 'assert';
 
 function hasAllCodes_(s: string, k: number): boolean {
+    const N = 1 << k;
+    const mask = (N >> 1) - 1;
     const existSet: null[] = [];
     let count = 0;
-    let N = 1 << k;
     let subNum = parseInt(s.substring(0, k), 2);
-    const mask = (N >> 1) - 1;
     existSet[subNum] = null;
     count++;
     for (let i = 1; i <= s.length - k; i++) {
         subNum = ((subNum & mask) << 1) | (s.charCodeAt(i + k - 1) - 48);
         if (existSet[subNum] === undefined) {
-            count++;
             existSet[subNum] = null;
+            count++;
         }
         if (count === N) return true;
     }
