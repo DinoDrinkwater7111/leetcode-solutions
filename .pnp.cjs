@@ -35,6 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
+            ["@datastructures-js/priority-queue", "npm:6.1.1"],
             ["@types/node", "npm:17.0.8"],
             ["@types/roman-numerals", "npm:0.3.0"],
             ["prettier", "npm:2.5.1"],
@@ -61,6 +62,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@cspotcode/source-map-support", "npm:0.7.0"],
             ["@cspotcode/source-map-consumer", "npm:0.8.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@datastructures-js/heap", [
+        ["npm:4.1.0", {
+          "packageLocation": "./.yarn/cache/@datastructures-js-heap-npm-4.1.0-221ec2d313-1e92c46943.zip/node_modules/@datastructures-js/heap/",
+          "packageDependencies": [
+            ["@datastructures-js/heap", "npm:4.1.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@datastructures-js/priority-queue", [
+        ["npm:6.1.1", {
+          "packageLocation": "./.yarn/cache/@datastructures-js-priority-queue-npm-6.1.1-cee18b957d-1435c835e8.zip/node_modules/@datastructures-js/priority-queue/",
+          "packageDependencies": [
+            ["@datastructures-js/priority-queue", "npm:6.1.1"],
+            ["@datastructures-js/heap", "npm:4.1.0"]
           ],
           "linkType": "HARD",
         }]
@@ -169,6 +189,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["leetcode-solutions", "workspace:."],
+            ["@datastructures-js/priority-queue", "npm:6.1.1"],
             ["@types/node", "npm:17.0.8"],
             ["@types/roman-numerals", "npm:0.3.0"],
             ["prettier", "npm:2.5.1"],

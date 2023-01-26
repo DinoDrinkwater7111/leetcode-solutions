@@ -1,6 +1,35 @@
 import assert from 'assert';
 
 function searchMatrix(matrix: number[][], target: number): boolean {
+    function findRowSupInd(rowInd: number, start: number, end: number): number {
+        while (start < end) {
+            const mid = (start + end) >> 1;
+            if (target < matrix[rowInd][mid]) end = mid;
+            else start = mid + 1;
+        }
+        return start;
+    }
+
+    function findColSupInd(colInd: number, start: number, end: number): number {
+        while (start < end) {
+            const mid = (start + end) >> 1;
+            if (target < matrix[mid][colInd]) end = mid;
+            else start = mid + 1;
+        }
+        return start;
+    }
+
+    const rowBound = findColSupInd(0, 0, matrix.length);
+    let colBound = matrix[0].length;
+    for (let row = 0; row < rowBound; row++) {
+        if (matrix[row][0] > target) break;
+        colBound = findRowSupInd(row, 0, colBound) - 1;
+        if (matrix[row][colBound] === target) return true;
+    }
+    return false;
+}
+
+function _searchMatrix(matrix: number[][], target: number): boolean {
     function findRowSupInd(rowInd: number, start: number, end: number, target: number): number {
         if (target < matrix[rowInd][start]) return start - 1;
         if (target > matrix[rowInd][end]) return end + 1;
@@ -44,10 +73,6 @@ function searchMatrix(matrix: number[][], target: number): boolean {
         colEnd--;
     }
     return false;
-}
-
-function _searchMatrix(matrix: number[][], target: number): boolean {
-
 }
 
 //TODO
