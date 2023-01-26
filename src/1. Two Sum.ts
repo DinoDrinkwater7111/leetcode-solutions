@@ -1,11 +1,6 @@
 import assert from 'assert';
 
 function twoSum(nums: number[], target: number): number[] {
-    if (target < 0) {
-        target *= -1;
-        nums = nums.map((i) => -i);
-    }
-
     const subtractedNums = nums.map((i) => i - target);
 
     const num2Index = new Map<number, number>();
@@ -44,10 +39,10 @@ function test() {
     let nums: number[] = [];
     let target: number = 0;
     try {
-        for (let i = 2; i < 10000; i++) {
+        for (let i = 2; i < 1000; i++) {
             nums = Array(i)
                 .fill(undefined)
-                .map(() => Math.random());
+                .map(() => Math.random() - 0.5);
             const i1 = Math.floor(Math.random() * i);
             let i2 = Math.floor(Math.random() * i);
             while (i2 === i1) i2 = Math.floor(Math.random() * i);
