@@ -23,64 +23,65 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
         public get median() {
             return (this.get(this.length / 2 - 1) + this.get(this.length / 2)) / 2;
         }
+
+
+        public findSuperior(arg: { start: number; end: number; target: number }): number {
+            const { start, end, target } = arg;
+    
+            if (start === end) {
+                if (target <= this.get(end)) return end;
+                else return -1;
+            }
+    
+            const middle = Math.floor((start + end) / 2);
+            if (target <= this.get(middle)) {
+                return this.findSuperior({
+                    start: start,
+                    end: middle,
+                    target: target,
+                });
+            } else {
+                return this.findSuperior({
+                    start: middle + 1,
+                    end: end,
+                    target: target,
+                });
+            }
+        }
+
+        public findInferior(arg: {  start: number; end: number; target: number }): number {
+            const { start, end, target } = arg;
+    
+            if (start === end) {
+                if (this.get(start) <= target) return start;
+                else return -1;
+            }
+    
+            const middle = Math.ceil((start + end) / 2);
+            if (this.get(middle) <= target) {
+                return this.findInferior({
+                    start: middle,
+                    end: end,
+                    target: target,
+                });
+            } else {
+                return this.findInferior({
+                    start: start,
+                    end: middle - 1,
+                    target: target,
+                });
+            }
+        }
     }
+
+    
 
     const _nums1 = new DoubledNums(nums1);
     const _nums2 = new DoubledNums(nums2);
 
     if (_nums2.length === 0) return _nums1.median;
 
-    function findSuperior(arg: { nums: DoubledNums; start: number; end: number; target: number }): number {
-        const { nums, start, end, target } = arg;
 
-        if (start === end) {
-            if (target <= nums.get(end)) return end;
-            else return -1;
-        }
-
-        const middle = Math.floor((start + end) / 2);
-        if (target <= nums.get(middle)) {
-            return findSuperior({
-                nums: nums,
-                start: start,
-                end: middle,
-                target: target,
-            });
-        } else {
-            return findSuperior({
-                nums: nums,
-                start: middle + 1,
-                end: end,
-                target: target,
-            });
-        }
-    }
-
-    function findInferior(arg: { nums: DoubledNums; start: number; end: number; target: number }): number {
-        const { nums, start, end, target } = arg;
-
-        if (start === end) {
-            if (nums.get(start) <= target) return start;
-            else return -1;
-        }
-
-        const middle = Math.ceil((start + end) / 2);
-        if (nums.get(middle) <= target) {
-            return findInferior({
-                nums: nums,
-                start: middle,
-                end: end,
-                target: target,
-            });
-        } else {
-            return findInferior({
-                nums: nums,
-                start: start,
-                end: middle - 1,
-                target: target,
-            });
-        }
-    }
 
     return 1;
 }
