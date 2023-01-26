@@ -1,42 +1,24 @@
 import assert from 'assert';
 
 const funcs = [
-    function permute(nums: number[]): number[][] {
+    function combinationSum(candidates: number[], target: number): number[][] {
+        candidates.sort((a, b) => a - b);
         const result: number[][] = [];
         const stack: number[] = [];
-        function permuteEx(): void {
-            if (nums.length === 0) result.push(stack.slice());
-            for (let i = 0; i < nums.length; i++) {
-                stack.push(nums[i]);
-                nums.splice(i, 1);
-                permuteEx();
-                nums.splice(i, 0, stack.pop()!);
-            }
-        }
-        permuteEx();
-
-        return result;
-    },
-    function permute(nums: number[]): number[][] {
-        const result: number[][] = [];
-
-        function permuteEx(p: number[], pool: number[]): void {
-            if (p.length === nums.length) {
-                result.push(p);
+        function combinationSumEx(target: number, startInd: number): void {
+            if (target < 0 || stack.length > 150) return;
+            if (target === 0) {
+                result.push(stack.slice());
                 return;
             }
-            for (let i = 0; i < nums.length - p.length; i++) {
-                const _p = p.slice();
-                const _pool = pool.slice();
-                _p.push(_pool[i]);
-                _pool[i] = _pool[_pool.length - 1];
-                _pool.pop();
-                permuteEx(_p, _pool);
+            for (let i = startInd; i < candidates.length; i++) {
+                if (candidates[i] > target) break;
+                stack.push(candidates[i]);
+                combinationSumEx(target - candidates[i], i);
+                stack.pop();
             }
         }
-
-        permuteEx([], nums);
-
+        combinationSumEx(target, 0);
         return result;
     },
 ];

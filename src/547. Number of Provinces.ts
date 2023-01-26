@@ -1,42 +1,28 @@
 import assert from 'assert';
 
 const funcs = [
-    function permute(nums: number[]): number[][] {
-        const result: number[][] = [];
-        const stack: number[] = [];
-        function permuteEx(): void {
-            if (nums.length === 0) result.push(stack.slice());
-            for (let i = 0; i < nums.length; i++) {
-                stack.push(nums[i]);
-                nums.splice(i, 1);
-                permuteEx();
-                nums.splice(i, 0, stack.pop()!);
+    function findCircleNum(isConnected: number[][]): number {
+        let result = 0;
+        const connectedRows = new Set<number>();
+        for (let i = 0; i < isConnected.length; i++) {
+            if (connectedRows.has(i)) continue;
+            let nextToBeConnect = [i];
+            while (nextToBeConnect.length > 0) {
+                const nextToBeConnect_: number[] = [];
+                for (const rowInd of nextToBeConnect) {
+                    if (connectedRows.has(rowInd)) continue;
+                    connectedRows.add(rowInd);
+                    isConnected[rowInd].forEach((v, j) => {
+                        if (v === 1) nextToBeConnect_.push(j);
+                    });
+                    for (let j = 0; j < isConnected[rowInd].length; j++) {
+                        if (isConnected[rowInd][j] === 1) nextToBeConnect_.push(j);
+                    }
+                }
+                nextToBeConnect = nextToBeConnect_;
             }
+            result++;
         }
-        permuteEx();
-
-        return result;
-    },
-    function permute(nums: number[]): number[][] {
-        const result: number[][] = [];
-
-        function permuteEx(p: number[], pool: number[]): void {
-            if (p.length === nums.length) {
-                result.push(p);
-                return;
-            }
-            for (let i = 0; i < nums.length - p.length; i++) {
-                const _p = p.slice();
-                const _pool = pool.slice();
-                _p.push(_pool[i]);
-                _pool[i] = _pool[_pool.length - 1];
-                _pool.pop();
-                permuteEx(_p, _pool);
-            }
-        }
-
-        permuteEx([], nums);
-
         return result;
     },
 ];
