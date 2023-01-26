@@ -1,14 +1,14 @@
 import assert from 'assert';
 
-function twoSum(nums: number[], target: number): number[] {
+function twoSum(numbers: number[], target: number): number[] {
     let start = 0;
-    let end = nums.length - 1;
+    let end = numbers.length - 1;
     while (start < end) {
-        const substracted = target - nums[start];
-        while (nums[end] > substracted) {
+        const substracted = target - numbers[start];
+        while (numbers[end] > substracted) {
             end--;
         }
-        if (nums[end] === substracted) {
+        if (numbers[end] === substracted) {
             return [start + 1, end + 1];
         } else {
             start++;
@@ -17,11 +17,11 @@ function twoSum(nums: number[], target: number): number[] {
     throw new Error();
 }
 
-function _twoSum(nums: number[], target: number): number[] {
-    for (let i = 0; i < nums.length; i++) {
-        for (let j = 0; j < nums.length; j++) {
+function _twoSum(numbers: number[], target: number): number[] {
+    for (let i = 0; i < numbers.length; i++) {
+        for (let j = 0; j < numbers.length; j++) {
             if (i === j) continue;
-            if (nums[i] + nums[j] === target) {
+            if (numbers[i] + numbers[j] === target) {
                 return [i + 1, j + 1];
             }
         }
@@ -30,30 +30,30 @@ function _twoSum(nums: number[], target: number): number[] {
 }
 
 function test() {
-    let nums: number[] = [];
+    let numbers: number[] = [];
     let target: number = 0;
     try {
         for (let i = 2; i < 1000; i++) {
-            nums = Array.from(
+            numbers = Array.from(
                 new Set(
                     Array(i)
                         .fill(undefined)
                         .map(() => Math.floor(Math.random() * 1000) - 1000)
                 )
             ).sort((a, b) => a - b);
-            const i1 = Math.floor(Math.random() * nums.length);
-            let i2 = Math.floor(Math.random() * nums.length);
+            const i1 = Math.floor(Math.random() * numbers.length);
+            let i2 = Math.floor(Math.random() * numbers.length);
             while (i2 === i1) i2 = Math.floor(Math.random() * i);
-            target = nums[i1] + nums[i2];
-            assert.deepStrictEqual(twoSum(nums, target), _twoSum(nums, target));
+            target = numbers[i1] + numbers[i2];
+            assert.deepStrictEqual(twoSum(numbers, target), _twoSum(numbers, target));
         }
     } catch (e) {
         if (e instanceof assert.AssertionError) {
-            console.log(nums);
+            console.log(numbers);
             console.log(target);
             console.log(e.message);
         } else {
-            console.log(nums);
+            console.log(numbers);
             console.log(target);
             console.error(e);
         }
