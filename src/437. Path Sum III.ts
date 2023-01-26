@@ -12,18 +12,36 @@ class TreeNode {
 }
 
 const funcs = [
-    function diameterOfBinaryTree(root: TreeNode | null): number {
-        let maxNumberOfNode = Number.NEGATIVE_INFINITY;
-        /**@return max height from root */
-        function diameterOfBinaryTreeEx(root: TreeNode | null): number {
-            if (root === null) return 0;
-            const leftMaxHeight = diameterOfBinaryTreeEx(root.left);
-            const rightMaxHeight = diameterOfBinaryTreeEx(root.right);
-            maxNumberOfNode = Math.max(maxNumberOfNode, leftMaxHeight + rightMaxHeight + 1);
-            return Math.max(leftMaxHeight, rightMaxHeight) + 1;
+    function pathSum(root: TreeNode | null, targetSum: number): number {
+        let result = 0;
+        const dp: number[] = [0];
+        const sum2Count = new Map([[0, 1]]);
+        function pathSumEx(root: TreeNode | null): void {
+            if (root === null) return;
+            const sum = dp[dp.length - 1] + root.val;
+            dp.push(sum);
+            result += sum2Count.get(sum - targetSum) ?? 0;
+            sum2Count.set(sum, (sum2Count.get(sum) ?? 0) + 1);
+            pathSumEx(root.left);
+            pathSumEx(root.right);
+            sum2Count.set(sum, sum2Count.get(dp.pop()!)! - 1);
         }
-        diameterOfBinaryTreeEx(root);
-        return maxNumberOfNode - 1;
+        pathSumEx(root);
+        return result;
+    },
+    function pathSum(root: TreeNode | null, targetSum: number): number {
+        let result = 0;
+        const dp: number[] = [0];
+        function pathSumEx(root: TreeNode | null): void {
+            if (root === null) return;
+            dp.push(dp[dp.length - 1] + root.val);
+            for (let i = 0; i < dp.length - 1; i++) if (dp[dp.length - 1] - dp[i] === targetSum) result++;
+            pathSumEx(root.left);
+            pathSumEx(root.right);
+            dp.pop();
+        }
+        pathSumEx(root);
+        return result;
     },
 ];
 
