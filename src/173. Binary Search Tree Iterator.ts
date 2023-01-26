@@ -12,6 +12,38 @@ class TreeNode {
 }
 
 class BSTIterator {
+    private readonly stack: TreeNode[] = [];
+    private curr: TreeNode | null;
+    private nextNode: TreeNode | null;
+    constructor(root: TreeNode | null) {
+        this.curr = root;
+        this.nextNode = this.findNextNode();
+    }
+
+    next(): number {
+        const result = this.nextNode!.val;
+        this.nextNode = this.findNextNode();
+        return result;
+    }
+
+    hasNext(): boolean {
+        return this.nextNode !== null;
+    }
+
+    private findNextNode(): TreeNode | null {
+        while (this.curr !== null) {
+            this.stack.push(this.curr);
+            this.curr = this.curr.left;
+        }
+        if (this.stack.length === 0) return null;
+        this.curr = this.stack.pop()!;
+        const result = this.curr;
+        this.curr = this.curr.right;
+        return result;
+    }
+}
+
+class _BSTIterator {
     private readonly _nodeStack: TreeNode[] = [];
     private _currentNode: TreeNode | null;
     private nextNode: TreeNode | null;
