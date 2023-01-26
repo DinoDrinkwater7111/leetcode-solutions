@@ -5,7 +5,6 @@ const funcs = [
         const result: number[] = [];
         let sum = 0;
         for (const num of nums) if ((num & 1) === 0) sum += num;
-        let sum = nums.reduce((p, c) => ((c & 1) === 0 ? p + c : p), 0);
         for (const [val, i] of queries) {
             if ((nums[i] & 1) === 0) sum += (val & 1) === 0 ? val : -nums[i];
             else sum += (val & 1) === 1 ? nums[i] + val : 0;
