@@ -9,26 +9,58 @@ class ListNode {
     }
 }
 
-function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
-    if (head === null) return null;
+const funcs = [
+    function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
+        let count = 0;
+        const vHead = new ListNode(Number.NaN, head);
+        let lead = vHead;
+        let delayed = vHead;
+        while (lead.next !== null) {
+            lead = lead.next;
+            count++;
+            if (count > n) delayed = delayed.next!;
+        }
+        delayed.next = delayed.next?.next ?? null;
+        return vHead.next;
+    },
+    function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
+        let count = 0;
+        {
+            let curr = head;
+            while (curr !== null) {
+                curr = curr.next;
+                count++;
+            }
+        }
+        const vHead = new ListNode(Number.NaN, head);
+        let curr = vHead;
+        for (let i = 0; i < count - n; i++) {
+            curr = curr.next!;
+        }
+        curr.next = curr.next?.next ?? null;
+        return vHead.next;
+    },
+    function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
+        if (head === null) return null;
 
-    const candidateNodes: ListNode[] = [];
-    let currentNode: ListNode | null = head;
-    let count = 0;
-    while (currentNode !== null) {
-        candidateNodes[count] = currentNode;
-        currentNode = currentNode.next;
-        count++;
-    }
-    if (count === n) {
-        return head.next;
-    } else {
-        const target = candidateNodes[count - n];
-        const targetPrev = candidateNodes[count - n - 1];
-        targetPrev.next = target.next;
-        return head;
-    }
-}
+        const candidateNodes: ListNode[] = [];
+        let currentNode: ListNode | null = head;
+        let count = 0;
+        while (currentNode !== null) {
+            candidateNodes[count] = currentNode;
+            currentNode = currentNode.next;
+            count++;
+        }
+        if (count === n) {
+            return head.next;
+        } else {
+            const target = candidateNodes[count - n];
+            const targetPrev = candidateNodes[count - n - 1];
+            targetPrev.next = target.next;
+            return head;
+        }
+    },
+];
 
 function list2Arr(listNode: ListNode | null): number[] {
     const result: number[] = [];
@@ -51,27 +83,37 @@ function arr2list(nums: number[]): ListNode | null {
     return resultPrev.next;
 }
 
-function test() {
-    let nums: number[] = [];
+type TestCase = Parameters<typeof funcs[number]>;
+function* testCaseIterator(): Generator<TestCase> {}
+
+function test(testCase: TestCase, actualFuncInd: number, expectedFuncInd: number): boolean {
     try {
-        for (let i = 1; i < 100; i++) {
-            for (let n = 1; n <= i; n++) {
-                nums = Array(i)
-                    .fill(undefined)
-                    .map((v, i) => i);
-                assert.deepStrictEqual(
-                    list2Arr(removeNthFromEnd(arr2list(nums), n)),
-                    nums.filter((v, i) => i !== nums.length - n)
-                );
-            }
-        }
+        assert.deepStrictEqual(funcs[actualFuncInd](...testCase), funcs[expectedFuncInd](...testCase));
+        return true;
     } catch (e) {
+        console.log('❌'.repeat(32));
+        console.log(`actualFuncInd: ${actualFuncInd}`);
+        console.log(`expectedFuncInd: ${expectedFuncInd}`);
+        console.log(`testCase: ${JSON.stringify(testCase)}`);
         if (e instanceof assert.AssertionError) {
-            console.log(nums);
             console.log(e.message);
         } else {
             console.error(e);
         }
+        return false;
     }
 }
-test();
+
+{
+    let count = 0;
+    outer: for (const testCase of testCaseIterator()) {
+        if (++count < 10) {
+            console.log('----------------------------------------------------');
+            console.log(`Testcase ${count}:`);
+            console.log(JSON.stringify(testCase, undefined, 2));
+        }
+        for (let i = 0; i < funcs.length - 1; i++) {
+            if (!test(testCase, i, i + 1)) break outer;
+        }
+    }
+}
