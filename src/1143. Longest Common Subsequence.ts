@@ -1,17 +1,13 @@
 import assert from 'assert';
 
 function longestCommonSubsequence(text1: string, text2: string): number {
-    const text2_char2Indexs = new Map<string, number[]>();
-    for (let i = 0; i < text2.length; i++) {
-        const char = text2[i];
-        const indexs = text2_char2Indexs.get(char) ?? [];
-        indexs.push(i);
-        text2_char2Indexs.set(char, indexs);
-    }
     let dp: number[] = [];
-    for (let end2 = 0; end2 < text2.length; end2++) {
-        const indexs = text2_char2Indexs.get(text1[0]) ?? [Number.POSITIVE_INFINITY];
-        dp[end2] = indexs[0] <= end2 ? 1 : 0;
+    {
+        let hasText1FirstChar = false;
+        for (let end2 = 0; end2 < text2.length; end2++) {
+            if (text1[0] === text2[end2]) hasText1FirstChar = true;
+            dp[end2] = hasText1FirstChar ? 1 : 0;
+        }
     }
     for (let end1 = 1; end1 < text1.length; end1++) {
         const _dp: number[] = [];
