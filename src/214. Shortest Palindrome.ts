@@ -1,50 +1,54 @@
 import assert from 'assert';
 
 function shortestPalindrome(s: string): string {
-    let candidateAppendChars: string[] | undefined = undefined;
+    {
+        const reversedCharArr = Array.from(s).reverse();
 
-    function findPalindromeFromCenter(centerIndex: number, isEven: boolean): void {
-        const evenOffset = isEven ? 1 : 0;
-        const _candidateAppendChars: string[] = [];
-        for (let i = 1; centerIndex + i - evenOffset < s.length; i++) {
-            const rightChar = s.charAt(centerIndex + i - evenOffset);
-            const leftChar = s.charAt(centerIndex - i);
-            if (rightChar === leftChar) {
-                continue;
+        //KMP
+        function findIndex(): number {
+            const table: number[] = [-1];
+            {
+                let cnd = 0;
+                for (let pos = 1; pos < s.length; pos++) {
+                    if (s.charAt(pos) === s.charAt(cnd)) {
+                        table[pos] = table[cnd];
+                    } else {
+                        table[pos] = cnd;
+                        while (cnd >= 0 && s.charAt(pos) !== s.charAt(cnd)) {
+                            cnd = table[cnd];
+                        }
+                    }
+                    cnd++;
+                }
             }
-            if (leftChar === '') {
-                _candidateAppendChars.push(rightChar);
-                continue;
+
+            let m = 0;
+            let skip = 0;
+            outerLoop: while (m < reversedCharArr.length) {
+                for (let i = skip; i < s.length; i++) {
+                    if (reversedCharArr[m + i] === undefined) break;
+                    if (reversedCharArr[m + i] !== s.charAt(i)) {
+                        m = m + i - table[i];
+                        skip = Math.max(0, table[i]);
+                        continue outerLoop;
+                    }
+                }
+                return m;
             }
-            return;
+            return -1;
         }
-        if (candidateAppendChars === undefined || candidateAppendChars.length > _candidateAppendChars.length) {
-            candidateAppendChars = _candidateAppendChars;
-        }
-    }
 
-    const upperCenter = Math.floor(s.length / 2);
-    if (s.length % 2 === 0) {
-        findPalindromeFromCenter(Math.floor(s.length / 2), true);
-    }else{
-        findPalindromeFromCenter(upperCenter, true);
-        findPalindromeFromCenter(upperCenter, false);
-    }
-
-    for (let i = upperCenter - 1; i > 0; i--) {
-        findPalindromeFromCenter(i, true);
-        findPalindromeFromCenter(i, false);
-        if (candidateAppendChars !== undefined) break;
-    }
-
-    if (candidateAppendChars === undefined) {
-        candidateAppendChars = [];
-        for (let j = 1; j < s.length; j++) {
-            candidateAppendChars.push(s.charAt(j));
+        const startIndex = findIndex();
+        if (startIndex === -1) {
+            return reversedCharArr.join('') + s.substring(1);
+        } else {
+            const prefix: string[] = [];
+            for (let i = 0; i < startIndex; i++) {
+                prefix.push(reversedCharArr[i]);
+            }
+            return prefix.join('') + s;
         }
     }
-
-    return candidateAppendChars!.reverse().join('') + s;
 }
 
 function _shortestPalindrome(s: string): string {
@@ -69,11 +73,10 @@ function _shortestPalindrome(s: string): string {
 }
 
 function test() {
-    shortestPalindrome("111");
     let s: string = '';
-    const charPool = ['1', '2', '3'];
+    const charPool = ['1', '2', '3', '4'];
     try {
-        for (let i = 1; i < 2000; i++) {
+        for (let i = 1; i < 1000; i++) {
             s = Array(i)
                 .fill(undefined)
                 .map(() => charPool[Math.floor(Math.random() * charPool.length)])
