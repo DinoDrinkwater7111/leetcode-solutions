@@ -12,19 +12,19 @@ class ListNode {
 function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
     if (head === null) return null;
 
-    const candidateNodes: ListNode[] = Array(n + 1).fill(undefined);
+    const candidateNodes: ListNode[] = [];
     let currentNode: ListNode | null = head;
-    let ind = 0;
+    let count = 0;
     while (currentNode !== null) {
-        candidateNodes[ind % candidateNodes.length] = currentNode;
+        candidateNodes[count] = currentNode;
         currentNode = currentNode.next;
-        ind++;
+        count++;
     }
-    if (ind === n) {
+    if (count === n) {
         return head.next;
     } else {
-        const target = candidateNodes[(ind - n) % candidateNodes.length];
-        const targetPrev = candidateNodes[(ind - n - 1) % candidateNodes.length];
+        const target = candidateNodes[count - n];
+        const targetPrev = candidateNodes[count - n - 1];
         targetPrev.next = target.next;
         return head;
     }
