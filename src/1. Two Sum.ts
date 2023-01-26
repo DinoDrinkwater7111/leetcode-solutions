@@ -50,13 +50,11 @@ function test() {
             assert.deepStrictEqual(twoSum(nums, target), _twoSum(nums, target));
         }
     } catch (e) {
+        console.log(nums);
+        console.log(target);
         if (e instanceof assert.AssertionError) {
-            console.log(nums);
-            console.log(target);
             console.log(e.message);
         } else {
-            console.log(nums);
-            console.log(target);
             console.error(e);
         }
     }
