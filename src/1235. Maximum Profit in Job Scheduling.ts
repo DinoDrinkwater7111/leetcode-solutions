@@ -93,7 +93,7 @@ const funcs = [
 
 type TestCase = Parameters<typeof funcs[number]>;
 function* testCaseIterator(): Generator<TestCase> {
-    yield [];
+    //TODO
 }
 
 function test(testCase: TestCase, actualFuncInd: number, expectedFuncInd: number): boolean {
