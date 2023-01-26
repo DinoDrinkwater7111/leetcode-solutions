@@ -1,41 +1,44 @@
 import assert from 'assert';
 
-const funcs = [
-    function lengthOfLongestSubstring(s: string): number {
-        let candidate = 0;
-        const charArr = Array.from(s);
-        let char2Index = new Map<string, number>();
-        let start = 0;
-        for (let i = 0; i < charArr.length; i++) {
-            const char = charArr[i];
-            if (char2Index.has(char)) {
-                candidate = Math.max(char2Index.size, candidate);
-                const newStart = char2Index.get(char)! + 1;
-                for (let j = start; j < newStart; j++) {
-                    char2Index.delete(charArr[j]);
-                }
-                start = newStart;
-            }
-            char2Index.set(char, i);
-        }
-        candidate = Math.max(char2Index.size, candidate);
-    
-        return candidate;
-    },
-    function lengthOfLongestSubstring(s: string): number {
-        let result = 0;
-        for (let start = 0; start < s.length; start++) {
-            for (let end = 0; end < s.length; end++) {
-                const subStr = s.substring(start, end + 1);
-                const charSet = new Set(Array.from(subStr));
-                if (charSet.size === subStr.length) {
-                    result = Math.max(result, charSet.size);
-                }
-            }
-        }
-    
-        return result;
+class TreeNode {
+    val: number;
+    left: TreeNode | null;
+    right: TreeNode | null;
+    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+        this.val = val === undefined ? 0 : val;
+        this.left = left === undefined ? null : left;
+        this.right = right === undefined ? null : right;
     }
+}
+
+const funcs = [
+    function numsSameConsecDiff(n: number, k: number): number[] {
+        if (k === 0) {
+            const n1 = (10 ** n - 1) / 9;
+            return Array(9)
+                .fill(0)
+                .map((v, i) => n1 * (i + 1));
+        }
+        const result: number[] = [];
+        let numStack: number = 0;
+        function numsSameConsecDiffEx(n: number, nextDigit: number): void {
+            if (nextDigit < 0 || nextDigit > 9) return;
+            numStack = numStack * 10 + nextDigit;
+            if (n === 1) {
+                result.push(numStack);
+            } else {
+                numsSameConsecDiffEx(n - 1, nextDigit - k);
+                numsSameConsecDiffEx(n - 1, nextDigit + k);
+            }
+            numStack = Math.floor(numStack / 10);
+        }
+
+        for (let i = 1; i <= 9; i++) {
+            numsSameConsecDiffEx(n, i);
+        }
+
+        return result;
+    },
 ];
 
 type TestCase = Parameters<typeof funcs[number]>;
