@@ -67,7 +67,7 @@ function test() {
         for (let i = 1; i < 1000; i++) {
             s = Array(i)
                 .fill(undefined)
-                .map(() => charPool[Math.floor(Math.random() * 3)])
+                .map(() => charPool[Math.floor(Math.random() * charPool.length)])
                 .join('');
             assert.equal(longestPalindrome(s), _longestPalindrome(s));
         }
