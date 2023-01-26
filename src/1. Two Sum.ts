@@ -20,7 +20,7 @@ function twoSum(nums: number[], target: number): number[] {
         }
     }
 
-    return [-1, -1];
+    throw new Error()
 }
 
 function _twoSum(nums: number[], target: number): number[] {
