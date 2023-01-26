@@ -39,9 +39,9 @@ function test() {
             assert.deepStrictEqual(solution(isBadVersion)(n), _solution(isBadVersion)(n));
         }
     } catch (e) {
+        console.log(n);
+        console.log(bad);
         if (e instanceof assert.AssertionError) {
-            console.log(n);
-            console.log(bad);
             console.log(e.message);
         } else {
             console.error(e);
