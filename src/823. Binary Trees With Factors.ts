@@ -32,7 +32,15 @@ const funcs = [
     function numFactoredBinaryTrees(arr: number[]): number {
         const mod = 10 ** 9 + 7;
         arr.sort((a, b) => a - b);
-        /** root is arr[i] */
+        /** resultEx[i] = numFactoredBinaryTrees(arr.slice(0, i+1)) */
+        function findSupInd(start: number, end: number, target: number): number {
+            while (start < end) {
+                const mid = (start + end) >> 1;
+                if (target <= arr[mid]) end = mid;
+                else start = mid + 1;
+            }
+            return start;
+        }
         const resultEx: number[] = [];
         for (let i = 0; i < arr.length; i++) {
             resultEx[i] = 1;
@@ -55,7 +63,7 @@ const funcs = [
         for (const r of resultEx) result = (r + result) % mod;
 
         return result;
-    },
+    }, 
 ];
 
 type TestCase = Parameters<typeof funcs[number]>;
