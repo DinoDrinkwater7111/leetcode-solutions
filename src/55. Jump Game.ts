@@ -7,7 +7,7 @@ function canJump(nums: number[]): boolean {
         for (let i = to - 1; i >= 0; i--) {
             if (i + nums[i] >= to) {
                 let result = canJumpEx(i);
-                cache[i] = canJumpEx(i);
+                cache[i] = result;
                 if (result === true) return true;
             }
         }
