@@ -4,24 +4,23 @@ function generateMatrix(n: number): number[][] {
     const result: number[][] = Array(n)
         .fill(0)
         .map((row) => Array(n).fill(0));
-    let direction2Offset = new Map<number, [number, number]>([
-        [0, [0, 1]],
-        [1, [1, 0]],
-        [2, [0, -1]],
-        [3, [-1, 0]],
-    ]);
+    let direction2Offset: [number, number][] = [
+        [0, 1],
+        [1, 0],
+        [0, -1],
+        [-1, 0],
+    ];
     let i = 0;
     let j = 0;
     let direction = 0;
-    let count = 0;
-    while (count < n ** 2) {
-        count++;
+    const N = n ** 2;
+    for (let count = 1; count <= N; count++) {
         result[i][j] = count;
-        let [i_offset, j_offset] = direction2Offset.get(direction)!;
+        let [i_offset, j_offset] = direction2Offset[direction]!;
         const nextCell = result[i + i_offset]?.[j + j_offset];
         if (nextCell === undefined || nextCell !== 0) {
             direction = (direction + 1) % 4;
-            [i_offset, j_offset] = direction2Offset.get(direction)!;
+            [i_offset, j_offset] = direction2Offset[direction];
         }
         i += i_offset;
         j += j_offset;
@@ -58,5 +57,3 @@ function test() {
     }
 }
 test();
-
-
