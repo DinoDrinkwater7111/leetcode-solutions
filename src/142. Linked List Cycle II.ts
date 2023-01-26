@@ -21,6 +21,7 @@ function detectCycle(head: ListNode | null): ListNode | null {
                 slow = slow!.next;
                 fast = fast!.next;
             }
+            return slow;
         }
     }
     return null;
