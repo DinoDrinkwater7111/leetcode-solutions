@@ -25,32 +25,7 @@ function lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: Tree
 }
 
 function _lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: TreeNode | null): TreeNode | null {
-    let lastPopParent: TreeNode | null = null;
-    let found_p = false;
-    let found_q = false;
-    let curr = root;
-    while (curr !== null) {
-        if (curr.left === null) {
-            if (curr === p) found_p = true;
-            curr = curr.right;
-        } else {
-            let traveler = curr.left;
-            while (traveler.right !== null && traveler.right !== curr) {
-                traveler = traveler.right;
-            }
-            if (traveler.right === null) {
-                traveler.right = curr;
-                curr = curr.left;
-            } else {
-                if (found_p && found_q) return lastPopParent;
-                lastPopParent = curr;
-                traveler.right = null;
-                curr = curr.right;
-            }
-        }
-    }
 
-    throw new Error();
 }
 
 //TODO
