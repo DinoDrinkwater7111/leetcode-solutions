@@ -1,16 +1,10 @@
 import assert from 'assert';
 
 function hammingWeight(n: number): number {
-    let count: number;
-    if (n > 2147483647) {
-        count = n & 1;
-        n = Math.floor(n / 2);
-    } else {
-        count = 0;
-    }
+    let count = 0;
     while (n > 0) {
         count += n & 1;
-        n >>= 1;
+        n >>>= 1;
     }
     return count;
 }
