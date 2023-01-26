@@ -69,9 +69,7 @@ function test() {
                 assert.equal(actual.length, expected.length);
                 const actualStrArr = actual.map((v) => v.sort().join('|')).sort();
                 const expectedStrArr = expected.map((v) => v.sort().join('|')).sort();
-                for (let i = 0; i < expected.length; i++) {
-                    assert.deepStrictEqual(actualStrArr, expectedStrArr);
-                }
+                assert.deepStrictEqual(actualStrArr, expectedStrArr);
             }
         }
         assert.deepStrictEqual(threeSum([0, 0, 0, 0]), _threeSum([0, 0, 0, 0]));

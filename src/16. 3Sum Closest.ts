@@ -49,9 +49,6 @@ function _threeSumClosest(nums: number[], target: number): number {
                 } else if (sum < target) {
                     lower = Math.max(lower, sum);
                 } else {
-                    console.log(nums[i]);
-                    console.log(nums[j]);
-                    console.log(nums[k]);
                     return target;
                 }
             }
@@ -66,8 +63,6 @@ function _threeSumClosest(nums: number[], target: number): number {
 }
 
 function test() {
-    threeSumClosest([-38, 2, -2, -32, -49, 22, -40, 27, 43, -45, -14, 21], -33);
-    return;
     let nums: number[] = [];
     let target: number = 0;
     try {
