@@ -1,38 +1,26 @@
 import assert from 'assert';
 
 const funcs = [
-    function maxLength(arr: string[]): number {
-        const bitsArr: (number | undefined)[] = [];
-        for (let i = 0; i < arr.length; i++) {
-            let bits: number | undefined = 0;
-            for (let j = 0; j < arr[i].length; j++) {
-                const bit = 1 << (arr[i].charCodeAt(j) - 97);
-                if ((bits & bit) === 0) {
-                    bits |= bit;
-                } else {
-                    bits = undefined;
-                    break;
-                }
+    function arrayStringsAreEqual(word1: string[], word2: string[]): boolean {
+        let curr1 = [0, 0];
+        let curr2 = [0, 0];
+        while (curr1[0] < word1.length || curr2[0] < word2.length) {
+            if (word1[curr1[0]]?.[curr1[1]] !== word2[curr2[0]]?.[curr2[1]]) return false;
+            curr1[1]++;
+            if (curr1[1] === word1[curr1[0]].length) {
+                curr1[0]++;
+                curr1[1] = 0;
             }
-            bitsArr[i] = bits;
-        }
-        let sum = 0;
-        let bits = 0;
-        function maxLengthEx(curr: number): number {
-            if (curr === arr.length) return sum;
-            let max = maxLengthEx(curr + 1);
-            const currBits = bitsArr[curr];
-            if (currBits !== undefined && (currBits & bits) === 0) {
-                sum += arr[curr].length;
-                bits |= currBits
-                max = Math.max(max, maxLengthEx(curr + 1));
-                bits ^= currBits
-                sum -= arr[curr].length;
+            curr2[1]++;
+            if (curr2[1] === word2[curr2[0]].length) {
+                curr2[0]++;
+                curr2[1] = 0;
             }
-            return max;
         }
-
-        return maxLengthEx(0);
+        return true;
+    },
+    function arrayStringsAreEqual(word1: string[], word2: string[]): boolean {
+        return word1.join('') === word2.join('');
     },
 ];
 
@@ -75,4 +63,5 @@ function test(testCase: TestCase, actualFuncInd: number, expectedFuncInd: number
             if (!test(testCase, i, i + 1)) break outer;
         }
     }
+    0;
 }
