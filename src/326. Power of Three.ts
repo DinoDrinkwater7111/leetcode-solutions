@@ -1,40 +1,28 @@
 import assert from 'assert';
+import { performance } from 'perf_hooks';
 
 const funcs = [
-    function longestCommonPrefix(strs: string[]): string {
-        let end = 0;
-        outer: while (end < strs[0].length) {
-            for (let i = 1; i < strs.length; i++) {
-                if (strs[i][end] !== strs[0][end]) break outer;
-            }
-            end++;
-        }
-
-        return strs[0].substring(0, end);
+    function isPowerOfThree(n: number): boolean {
+        return n > 0 && 1162261467 % n == 0;
     },
-    function longestCommonPrefix(strs: string[]): string {
-        let resultCharArr: string[] = [];
-
-        if (strs[0].length === 0) return '';
-
-        let currentCharInd = 0;
-        while (currentCharInd < strs[0].length) {
-            const currentChar = strs[0].charAt(currentCharInd);
-            for (let i = 1; i < strs.length; i++) {
-                if (currentChar !== strs[i].charAt(currentCharInd)) {
-                    return resultCharArr.join('');
-                }
-            }
-            resultCharArr.push(currentChar);
-            currentCharInd++;
-        }
-        return resultCharArr.join('');
+    function isPowerOfThree(n: number): boolean {
+        return [
+            1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683, 59049, 177147, 531441, 1594323, 4782969, 14348907, 43046721,
+            129140163, 387420489, 1162261467,
+        ].includes(n);
+    },
+    function isPowerOfThree(n: number): boolean {
+        if (n < 1) return false;
+        const x = Math.log(n) / Math.log(3);
+        return 3 ** Math.round(x) === n;
     },
 ];
 
 type TestCase = Parameters<typeof funcs[number]>;
 function* testCaseIterator(): Generator<TestCase> {
-    //TODO
+    for (let i = 0; i < 268435456; i++) {
+        yield [i];
+    }
 }
 
 function test(testCase: TestCase, actualFuncInd: number, expectedFuncInd: number): boolean {
