@@ -55,6 +55,8 @@ function test() {
             console.log(target);
             console.log(e.message);
         } else {
+            console.log(nums);
+            console.log(target);
             console.error(e);
         }
     }
