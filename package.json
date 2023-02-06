@@ -7,17 +7,17 @@
     "license": "MIT",
     "packageManager": "yarn@3.1.1",
     "devDependencies": {
-        "@types/lodash": "^4.14.182",
-        "@types/node": "16",
-        "@types/roman-numerals": "^0.3.0",
-        "prettier": "^2.5.1",
-        "tslib": "2.4.0",
-        "tsx": "^3.12.1",
-        "typescript": "4.9.3"
+        "@types/lodash": "4.14",
+        "@types/node": "18",
+        "@types/roman-numerals": "0.3.0",
+        "prettier": "2.8.3",
+        "tslib": "2.5.0",
+        "tsx": "3.12.3",
+        "typescript": "4.9.5"
     },
     "dependencies": {
         "@datastructures-js/priority-queue": "4.1.1",
-        "lodash": "^4.17.21",
-        "roman-numerals": "^0.3.2"
+        "lodash": "4.14.2",
+        "roman-numerals": "0.3.2"
     }
 }
